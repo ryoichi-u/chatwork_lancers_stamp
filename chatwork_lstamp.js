@@ -21,58 +21,32 @@
   var txt = '';
 
   _chatText.on('keyup', function() {
-    console.log(txt);
     if(_chatText.val() !== '') {
        txt = _chatText.val();
     }
   });
 
-  var shortcutConf = [
-    { 
-      key: ':ok',
-      action: function() {
-        _chatText.val(_chatText.val().replace(/:ok/, '[preview id=123872200 ht=130]'));
-      }
-    },
-    { 
-      key: ':thank',
-      action: function() {
-        _chatText.val(_chatText.val().replace(/:thank/, '[preview id=123916974 ht=130]'));
-      }
-    },
-    { 
-      key: ':roger',
-      action: function() {
-        _chatText.val(_chatText.val().replace(/:roger/, '[preview id=123916999 ht=130]'));
-      }
-    },
-    { 
-      key: ':good',
-      action: function() {
-        _chatText.val(_chatText.val().replace(/:good/, '[preview id=123917003 ht=130]'));
-      }
-    },
-    { 
-      key: ':ban',
-      action: function() {
-        _chatText.val(_chatText.val().replace(/:ban/, '[preview id=123917011 ht=130]'));
-      }
-    },
-    { 
-      key: ':bow',
-      action: function() {
-        _chatText.val(_chatText.val().replace(/:bow/, '[preview id=123917024 ht=130]'));
-      }
-    },
+  var lstampconfs = [
+    {key: ':ok',    previewId: 162683192},
+    {key: ':thank', previewId: 162683234},
+    {key: ':rager', previewId: 162683222},
+    {key: ':good',  previewId: 162683201},
+    {key: ':ban',   previewId: 162683193},
+    {key: ':bow',   previewId: 162683211},
   ];
 
-  var exec = function() {
-    val = _chatText.val() == '' ? txt : _chatText.val();
+  lstampconfs.forEach(function(lstampconf) {
+      lstampconf.action = function() {
+          _chatText.val(_chatText.val().replace(new RegExp(lstampconf.key), '[preview id=' + lstampconf.previewId + ' ht=130]'));
+      };
+  });
+
+  const lstampexec = function() {
     // each action 
-    shortcutConf.forEach(function(conf) {
-      var regMatch = new RegExp("(^|\n)" + conf.key + "($|\n)");
+    lstampconfs.forEach(function(lsconf) {
+      var regMatch = new RegExp("(^|\n)" + lsconf.key + "($|\n)");
       if (_chatText.val().match(regMatch)) {
-        conf.action();
+        lsconf.action();
       }
     });
   };
@@ -82,13 +56,8 @@
     if (e.keyCode != 13 || (!e.ctrlKey && !e.metaKey && !e.shiftKey)) {
         return;
     }
-    exec();
+    lstampexec();
   });
-  /*
-  $('#_sendButton').on('submit', exec());
-  $('#_sendButton').on('click', function(e) {
-    exec();
-  });
-  */
 
 });
+
