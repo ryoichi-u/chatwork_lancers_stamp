@@ -33,6 +33,7 @@
     {key: ':good',  previewId: 162683201},
     {key: ':ban',   previewId: 162683193},
     {key: ':bow',   previewId: 162683211},
+    {key: ':lgtm',  previewId: 169997557},
   ];
 
   lstampconfs.forEach(function(lstampconf) {
